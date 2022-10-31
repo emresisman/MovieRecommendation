@@ -37,7 +37,7 @@ namespace MovieRecommendation.Crawler
                 .WithIdentity("trigger1", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(60)
+                    .WithIntervalInHours(2)
                     .RepeatForever())
                 .Build();
 
