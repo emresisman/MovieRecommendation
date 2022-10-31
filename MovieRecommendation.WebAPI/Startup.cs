@@ -78,6 +78,8 @@ namespace MovieRecommendation
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMailService, MailService>();
+
 
             services.AddDbContext<MovieRecommendationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnectionString")));
@@ -93,7 +95,6 @@ namespace MovieRecommendation
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthentication();

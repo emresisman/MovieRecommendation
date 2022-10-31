@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace MovieRecommendation.Entities
 {
@@ -9,7 +10,10 @@ namespace MovieRecommendation.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        [JsonIgnore]
         public int Id { get; set; }
+
+        [JsonProperty("id")]
         public int MovieId { get; set; }
         public string Poster_Path { get; set; }
         public string Title { get; set; }
