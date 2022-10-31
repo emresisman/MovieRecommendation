@@ -13,6 +13,5 @@ namespace MovieRecommendation.DAL
         public DbSet<Movies> Movies { get; set; }
         public DbSet<MovieNotes> MovieNotes { get; set; }
         public DbSet<MovieRatings> MovieRatings { get; set; }
-        public DbSet<Users> Users { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.Collections.Generic;
 
 namespace MovieRecommendation.Entities
 {
@@ -17,5 +18,7 @@ namespace MovieRecommendation.Entities
         public float? Vote_Average { get; set; }
         public int? Vote_Count { get; set; }
         public string Status { get; set; }
+        public List<MovieRatings> MovieRatings { get; set; }
+        public List<MovieNotes> MovieNotes { get; set; }
     }
 }
