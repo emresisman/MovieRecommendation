@@ -18,6 +18,11 @@ namespace MovieRecommendation.Business.Service
         public List<Movies> GetAllMovies(PaginationParameters filter)
         {
             return _repository.GetWithPagination<Movies>(filter);
+        }        
+        
+        public List<Movies> GetAllMovies()
+        {
+            return _repository.Get();
         }
 
         public Movies GetById(int movieId)

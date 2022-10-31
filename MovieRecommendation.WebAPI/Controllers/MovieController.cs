@@ -20,9 +20,27 @@ namespace MovieRecommendation.WebAPI.Controllers
         [HttpGet]
         [Route("GetAllMovies")]
         [AllowAnonymous]
-        public IActionResult GetAllMovies([FromQuery] PaginationParameters filter)
+        public IActionResult GetAllMovies()
+        {
+            var result = _movieService.GetAllMovies();
+            return Ok(result);
+        }        
+        
+        [HttpGet]
+        [Route("GetAllMoviesWithPage")]
+        [AllowAnonymous]
+        public IActionResult GetAllMoviesWithPage([FromQuery] PaginationParameters filter)
         {
             var result = _movieService.GetAllMovies(filter);
+            return Ok(result);
+        }
+        
+        [HttpGet]
+        [Route("GetMovieById")]
+        [AllowAnonymous]
+        public IActionResult GetMovieById(int id)
+        {
+            var result = _movieService.GetById(id);
             return Ok(result);
         }
     }

@@ -80,6 +80,7 @@ namespace MovieRecommendation
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMailService, MailService>();
             services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IRatingNoteService, RatingNoteService>();
 
 
             services.AddDbContext<MovieRecommendationDbContext>(options =>

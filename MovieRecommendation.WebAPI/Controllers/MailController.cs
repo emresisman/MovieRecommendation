@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieRecommendation.Business.Repository;
+using MovieRecommendation.Business.Request;
 using MovieRecommendation.Business.Service.Interface;
 using MovieRecommendation.Entities;
 
@@ -21,12 +22,11 @@ namespace MovieRecommendation.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendMail(int movieId, string mailAddress)
+        public IActionResult SendMail(MailRequest mailRequest)
         {
-            var movieName = _movieService.GetById(movieId).Title;
-            _mailService.SendMail(movieName, mailAddress);
+            var movieName = _movieService.GetById(mailRequest.MovieId).Title;
+            _mailService.SendMail(movieName, mailRequest.Email);
             return Ok();
         }
     }
-    
 }
