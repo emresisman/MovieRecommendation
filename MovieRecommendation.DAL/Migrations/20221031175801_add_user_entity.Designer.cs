@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieRecommendation.DAL;
 
 namespace MovieRecommendation.DAL.Migrations
 {
     [DbContext(typeof(MovieRecommendationDbContext))]
-    partial class MovieRecommendationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221031175801_add_user_entity")]
+    partial class add_user_entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

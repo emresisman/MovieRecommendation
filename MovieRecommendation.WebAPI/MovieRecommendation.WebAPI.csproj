@@ -22,10 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\MovieRecommendation.Business\MovieRecommendation.Business.csproj" />
     <ProjectReference Include="..\MovieRecommendation.DAL\MovieRecommendation.DAL.csproj" />
   </ItemGroup>
 
