@@ -44,9 +44,6 @@ namespace MovieRecommendation.Crawler
             // Tell quartz to schedule the job using our trigger
             await scheduler.ScheduleJob(job, trigger);
 
-            // some sleep to show what's happening
-            await Task.Delay(TimeSpan.FromSeconds(60));
-
             // and last shut down the scheduler when you are ready to close your program
             await scheduler.Shutdown();
 
