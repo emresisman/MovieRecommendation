@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieRecommendation.Business.Request.Pagination;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
@@ -13,6 +14,8 @@ namespace MovieRecommendation.Business.Repository
         List<T> GetWhere(Expression<Func<T, bool>> metot);
 
         List<A> GetWhere<A>(Expression<Func<A, bool>> metot) where A : class;
+
+        List<A> GetWithPagination<A>(PaginationParameters paginationParameters) where A : class;
 
         T GetSingle(Func<T, bool> metot);
 

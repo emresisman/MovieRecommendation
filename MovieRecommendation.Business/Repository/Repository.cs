@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MovieRecommendation.Business.Request.Pagination;
 using MovieRecommendation.DAL;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,12 @@ namespace MovieRecommendation.Business.Repository
         public A GetById<A>(int id) where A : class
         {
             return GetSingle<A>(t => typeof(A).GetProperty("Id").GetValue(t).ToString() == id.ToString());
+        }
+
+        public List<A> GetWithPagination<A>(PaginationParameters paginationParameters) where A : class
+        {
+            return Table<A>().Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize)
+            .Take(paginationParameters.PageSize).ToList();
         }
 
         public bool Remove(Type model)

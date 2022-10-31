@@ -79,6 +79,7 @@ namespace MovieRecommendation
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMailService, MailService>();
+            services.AddScoped<IMovieService, MovieService>();
 
 
             services.AddDbContext<MovieRecommendationDbContext>(options =>
