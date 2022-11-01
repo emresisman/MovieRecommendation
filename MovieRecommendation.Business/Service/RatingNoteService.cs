@@ -1,4 +1,5 @@
-﻿using MovieRecommendation.Business.Repository;
+﻿using MovieRecommendation.Business.Interface;
+using MovieRecommendation.Business.Repository;
 using MovieRecommendation.Business.Request;
 using MovieRecommendation.Business.Service.Interface;
 using MovieRecommendation.Entities;
@@ -10,11 +11,13 @@ namespace MovieRecommendation.Business.Service
     {
         private readonly IGenericRepository<MovieRatings> _ratingRepository;
         private readonly IGenericRepository<MovieNotes> _notesRepository;
+        private readonly IUserManager _userManager;
 
-        public RatingNoteService(IGenericRepository<MovieRatings> ratingRepository, IGenericRepository<MovieNotes> notesRepository)
+        public RatingNoteService(IGenericRepository<MovieRatings> ratingRepository, IGenericRepository<MovieNotes> notesRepository, IUserManager userManager)
         {
             _ratingRepository = ratingRepository;
             _notesRepository = notesRepository;
+            _userManager = userManager;
         }
 
         public void SetRatingToMovie(RatingRequest ratingRequest)
@@ -23,7 +26,7 @@ namespace MovieRecommendation.Business.Service
             {
                 MovieId = ratingRequest.MovieId,
                 Rating = ratingRequest.Rating,
-                UserId = 2
+                UserId = _userManager.GetAuthenticatedUser().Id
             };
             var dbEntity = _ratingRepository.GetQueryable().Where(x => x.UserId == entity.UserId && x.MovieId == entity.MovieId).FirstOrDefault();
             if (dbEntity != null)
@@ -42,7 +45,7 @@ namespace MovieRecommendation.Business.Service
             {
                 MovieId = noteRequest.MovieId,
                 Notes = noteRequest.Note,
-                UserId = 1
+                UserId = _userManager.GetAuthenticatedUser().Id
             };
             _notesRepository.Add(entity);
             _notesRepository.SaveChangesAsync();

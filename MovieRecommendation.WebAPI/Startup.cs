@@ -14,6 +14,8 @@ using System.Text;
 using System;
 using MovieRecommendation.Business.Repository;
 using System.Reflection;
+using MovieRecommendation.Business.Interface;
+using MovieRecommendation.Business.Middleware;
 
 namespace MovieRecommendation
 {
@@ -88,6 +90,7 @@ namespace MovieRecommendation
             services.AddScoped<IMailService, MailService>();
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IRatingNoteService, RatingNoteService>();
+            services.AddScoped<IUserManager, UserManager>();
 
 
             services.AddDbContext<MovieRecommendationDbContext>(options =>
@@ -108,6 +111,8 @@ namespace MovieRecommendation
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<SessionManagerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
