@@ -11,15 +11,16 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MovieRecommendation.Business.Service
 {
     public class UserService : IUserService
     {
-        private IRepository<Users> _repository;
+        private IGenericRepository<Users> _repository;
         private readonly IConfiguration _configuration;
 
-        public UserService(IRepository<Users> repository, IConfiguration configuration)
+        public UserService(IGenericRepository<Users> repository, IConfiguration configuration)
         {
             _repository = repository;
             _configuration = configuration;
@@ -27,7 +28,7 @@ namespace MovieRecommendation.Business.Service
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _repository.GetWhere(x => x.UserName == model.Username && x.Password == model.Password).FirstOrDefault();
+            var user = _repository.GetQueryable().Where(x => x.UserName == model.Username && x.Password == model.Password).FirstOrDefault();
 
             // return null if user not found
             if (user == null) return null;
@@ -40,12 +41,12 @@ namespace MovieRecommendation.Business.Service
 
         public IEnumerable<Users> GetAll()
         {
-            return _repository.Get();
+            return _repository.GetQueryable().ToList();
         }
 
-        public Users GetById(int id)
+        public async Task<Users> GetById(int id)
         {
-            return _repository.GetById(id);
+            return await _repository.Get(x => x.Id == id);
         }
 
         // helper methods

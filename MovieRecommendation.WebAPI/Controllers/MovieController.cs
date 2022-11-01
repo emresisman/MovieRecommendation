@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieRecommendation.Business.Request.Pagination;
 using MovieRecommendation.Business.Service.Interface;
+using MovieRecommendation.Entities;
+using System.Collections.Generic;
 
 namespace MovieRecommendation.WebAPI.Controllers
 {
@@ -11,10 +14,12 @@ namespace MovieRecommendation.WebAPI.Controllers
     public class MovieController : ControllerBase
     {
         private IMovieService _movieService;
+        private readonly IMapper _mapper;
 
-        public MovieController(IMovieService movieService)
+        public MovieController(IMovieService movieService, IMapper mapper)
         {
             _movieService = movieService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -22,7 +27,8 @@ namespace MovieRecommendation.WebAPI.Controllers
         [AllowAnonymous]
         public IActionResult GetAllMovies()
         {
-            var result = _movieService.GetAllMovies();
+            var movies =  _movieService.GetAllMovies();
+            var result = _mapper.Map<List<Movies>, List<MoviesDto>>(movies);
             return Ok(result);
         }        
         
@@ -31,7 +37,8 @@ namespace MovieRecommendation.WebAPI.Controllers
         [AllowAnonymous]
         public IActionResult GetAllMoviesWithPage([FromQuery] PaginationParameters filter)
         {
-            var result = _movieService.GetAllMovies(filter);
+            var movies = _movieService.GetAllMovies(filter);
+            var result = _mapper.Map<List<Movies>, List<MoviesDto>>(movies);
             return Ok(result);
         }
         

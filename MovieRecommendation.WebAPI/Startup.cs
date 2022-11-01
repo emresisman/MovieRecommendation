@@ -13,6 +13,7 @@ using MovieRecommendation.DAL;
 using System.Text;
 using System;
 using MovieRecommendation.Business.Repository;
+using System.Reflection;
 
 namespace MovieRecommendation
 {
@@ -27,7 +28,6 @@ namespace MovieRecommendation
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -76,7 +76,14 @@ namespace MovieRecommendation
                 };
             });
 
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMailService, MailService>();
             services.AddScoped<IMovieService, MovieService>();

@@ -1,9 +1,6 @@
 ﻿using MovieRecommendation.Business.Request.Pagination;
 using MovieRecommendation.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MovieRecommendation.Business.Service.Interface

@@ -3,10 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using MovieRecommendation.Entities.Abstract;
+using MovieRecommendation.Entities.Interface;
 
 namespace MovieRecommendation.Entities
 {
-    public class Movies
+    public class Movies : BaseEntity, IEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]

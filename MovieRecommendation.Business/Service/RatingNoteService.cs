@@ -2,21 +2,16 @@
 using MovieRecommendation.Business.Request;
 using MovieRecommendation.Business.Service.Interface;
 using MovieRecommendation.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MovieRecommendation.Business.Service
 {
     public class RatingNoteService : IRatingNoteService
     {
-        private readonly IRepository<MovieRatings> _ratingRepository;
-        private readonly IRepository<MovieNotes> _notesRepository;
+        private readonly IGenericRepository<MovieRatings> _ratingRepository;
+        private readonly IGenericRepository<MovieNotes> _notesRepository;
 
-        public RatingNoteService(IRepository<MovieRatings> ratingRepository, IRepository<MovieNotes> notesRepository)
+        public RatingNoteService(IGenericRepository<MovieRatings> ratingRepository, IGenericRepository<MovieNotes> notesRepository)
         {
             _ratingRepository = ratingRepository;
             _notesRepository = notesRepository;
@@ -30,15 +25,16 @@ namespace MovieRecommendation.Business.Service
                 Rating = ratingRequest.Rating,
                 UserId = 2
             };
-            var dbEntity = _ratingRepository.Get<MovieRatings>().Where(x => x.UserId == entity.UserId && x.MovieId == entity.MovieId).FirstOrDefault();
+            var dbEntity = _ratingRepository.GetQueryable().Where(x => x.UserId == entity.UserId && x.MovieId == entity.MovieId).FirstOrDefault();
             if (dbEntity != null)
             {
-                _ratingRepository.Update(entity, dbEntity.Id);
+                _ratingRepository.Update(entity);
             }
             else
             {
                 _ratingRepository.Add(entity);
             }
+            _ratingRepository.SaveChangesAsync();
         }
         public void SetNoteToMovie(NoteRequest noteRequest)
         {
@@ -49,6 +45,7 @@ namespace MovieRecommendation.Business.Service
                 UserId = 1
             };
             _notesRepository.Add(entity);
+            _notesRepository.SaveChangesAsync();
         }
     }
 }

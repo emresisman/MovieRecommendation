@@ -84,6 +84,7 @@ namespace MovieRecommendation.Crawler
     {
         public async Task Execute(IJobExecutionContext context)
         {
+
             await Console.Out.WriteLineAsync("Movie crawler started.");
 
             var builder = new ConfigurationBuilder()
@@ -93,13 +94,13 @@ namespace MovieRecommendation.Crawler
             var config = builder.Build();
 
             ServiceProvider serviceProvider = new ServiceCollection()
-                .AddSingleton<IRepository<Movies>, Repository<Movies>>()
+                .AddSingleton(typeof(IGenericRepository<>), typeof(GenericRepository<>))
                 .AddDbContext<MovieRecommendationDbContext>(options => options.UseSqlServer(config["ConnectionString"]))
                 .BuildServiceProvider();
 
             var lastMovieIdFromDB = 0;
-            IRepository<Movies> connection = serviceProvider.GetService<IRepository<Movies>>();
-            var lastMovie = connection.Get().OrderByDescending(x => x.MovieId).FirstOrDefault();
+            IGenericRepository<Movies> connection = serviceProvider.GetService<IGenericRepository<Movies>>();
+            var lastMovie = connection.GetQueryable().OrderByDescending(x => x.MovieId).FirstOrDefault();
             if (lastMovie != null)
             {
                 lastMovieIdFromDB = lastMovie.MovieId;
@@ -107,9 +108,7 @@ namespace MovieRecommendation.Crawler
             CrawlerManager crawlerService = new CrawlerManager(connection, config);
             await crawlerService.Proccess(lastMovieIdFromDB + 1);
 
-            await Console.Out.WriteLineAsync("All movies reveiced.");
+            await Console.Out.WriteLineAsync("All movies reveiced.");            
         }
-
-
     }
 }

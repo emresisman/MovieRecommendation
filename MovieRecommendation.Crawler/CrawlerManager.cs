@@ -11,12 +11,12 @@ namespace MovieRecommendation.Crawler
 {
     public class CrawlerManager
     {
-        private readonly IRepository<Movies> _repository;
+        private readonly IGenericRepository<Movies> _repository;
         private readonly IConfigurationRoot _configuration;
         private HttpClient client;
         private int latestId = 0;
 
-        public CrawlerManager(IRepository<Movies> repository, IConfigurationRoot configuration)
+        public CrawlerManager(IGenericRepository<Movies> repository, IConfigurationRoot configuration)
         {
             _repository = repository;
             _configuration = configuration;
@@ -63,7 +63,8 @@ namespace MovieRecommendation.Crawler
             var movie = await GetMovieById(id);
             if (movie.MovieId != 0)
             {
-                _repository.Add(movie);
+                await _repository.Add(movie);
+                await _repository.SaveChangesAsync();
             }
             return await GetAllMoviesFromId(id += 1);
         }

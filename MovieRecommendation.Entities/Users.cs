@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using MovieRecommendation.Entities.Abstract;
+using MovieRecommendation.Entities.Interface;
 
 namespace MovieRecommendation.Entities
 {
-    public class Users
+    public class Users : BaseEntity, IEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]

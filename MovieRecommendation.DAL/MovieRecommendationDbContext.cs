@@ -14,5 +14,12 @@ namespace MovieRecommendation.DAL
         public DbSet<MovieNotes> MovieNotes { get; set; }
         public DbSet<MovieRatings> MovieRatings { get; set; }
         public DbSet<Users> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MovieNotes>()
+                .HasOne(p => p.Movie)
+                .WithMany(b => b.MovieNotes);
+        }
     }
 }
