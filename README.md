@@ -3,7 +3,9 @@ Movie recommendation web api project.
 
 ## Dependencies
 
-SDK .Net 5
+- SDK .Net 5
+- Docker
+- MsSQL 2017
 
 ## Installation
 
@@ -25,7 +27,7 @@ Go to project root folder and run Migration command in Package Manager Console
 dotnet ef database update --project MovieRecommendation.DAL --startup-project MovieRecommendation.WebAPI
 ```
 
-Run MovieRecommendation.Crawler to fill your Movies database.
+Run MovieRecommendation.Crawler to fill your Movies database. (If you have higher version than .Net 5, run from Editor)
 
 ```sh
 dotnet run --project MovieRecommendation.Crawler/MovieRecommendation.Crawler.csproj
@@ -38,3 +40,5 @@ Run MovieRecommendation.WebAPI project.
 ```sh
 dotnet run --project MovieRecommendation.WebAPI/MovieRecommendation.WebaPI.csproj
 ```
+
+Execute api methods from https://localhost:5001/swagger/index.html
