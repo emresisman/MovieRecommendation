@@ -16,6 +16,7 @@ using MovieRecommendation.Business.Repository;
 using System.Reflection;
 using MovieRecommendation.Business.Interface;
 using MovieRecommendation.Business.Middleware;
+using MovieRecommendation.DAL.Migrations;
 
 namespace MovieRecommendation
 {
@@ -92,20 +93,18 @@ namespace MovieRecommendation
             services.AddScoped<IRatingNoteService, RatingNoteService>();
             services.AddScoped<IUserManager, UserManager>();
 
-
             services.AddDbContext<MovieRecommendationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnectionString")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieRecommendation v1"));
+                DataSeeding.Seed(app);
             }
 
             app.UseHttpsRedirection();

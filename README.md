@@ -42,3 +42,7 @@ dotnet run --project MovieRecommendation.WebAPI/MovieRecommendation.WebaPI.cspro
 ```
 
 Execute api methods from https://localhost:5001/swagger/index.html
+
+Account for authenticate:
+username=test
+password=test
