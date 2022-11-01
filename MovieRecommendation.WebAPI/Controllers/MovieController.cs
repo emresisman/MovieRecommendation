@@ -24,7 +24,6 @@ namespace MovieRecommendation.WebAPI.Controllers
 
         [HttpGet]
         [Route("GetAllMovies")]
-        [AllowAnonymous]
         public IActionResult GetAllMovies()
         {
             var movies =  _movieService.GetAllMovies();
@@ -34,7 +33,6 @@ namespace MovieRecommendation.WebAPI.Controllers
         
         [HttpGet]
         [Route("GetAllMoviesWithPage")]
-        [AllowAnonymous]
         public IActionResult GetAllMoviesWithPage([FromQuery] PaginationParameters filter)
         {
             var movies = _movieService.GetAllMovies(filter);
@@ -44,7 +42,6 @@ namespace MovieRecommendation.WebAPI.Controllers
         
         [HttpGet]
         [Route("GetMovieById")]
-        [AllowAnonymous]
         public IActionResult GetMovieById(int id)
         {
             var result = _movieService.GetById(id);

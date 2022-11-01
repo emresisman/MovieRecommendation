@@ -7,6 +7,7 @@ namespace MovieRecommendation.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class RatingNoteController : Controller
     {
         private readonly IRatingNoteService _ratingNoteService;

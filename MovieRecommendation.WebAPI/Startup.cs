@@ -99,6 +99,8 @@ namespace MovieRecommendation
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -108,7 +110,7 @@ namespace MovieRecommendation
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseExceptionMiddleware();
             app.UseAuthentication();
             app.UseAuthorization();
 
